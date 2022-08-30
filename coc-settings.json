@@ -1,0 +1,39 @@
+{
+  // Require .prettierrc
+  "prettier.requireConfig": false,
+
+  // Run prettier (and others)
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "markdown",
+    "Markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json"
+  ],
+
+  "languageserver": {
+    "csharp-ls": {
+      "command": "csharp-ls",
+      "filetypes": ["cs"],
+      "rootPatterns": ["*.csproj", ".vim/", ".git/", ".hg/"]
+    },
+    "rust": {
+      "command": "rust-analyzer",
+      "filetypes": ["rust"],
+      "rootPatterns": ["Cargo.toml"]
+    }
+  },
+  "coc.preferences.useQuickFixForLocations": true,
+  "coc.preferences.snippets.enable": true,
+  "coc.preferences.extensionUpdateCheck": "never",
+  "suggest.disableMenu": true,
+  "suggest.snippetIndicator": "",
+  "codeLens.enable": true,
+  "codeLens.separator": "🔍",
+  "coc.preferences.jumpCommand": "drop",
+  "coc.preferences.rootPatterns": [".git", ".vscode"],
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true
+}
