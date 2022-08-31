@@ -60,6 +60,18 @@ require("toggleterm").setup{
     end
 }
 
+local conemu = require("toggleterm.terminal").Terminal:new({
+    cmd ="cmd /k %CMDER_ROOT%\\vendor\\init.bat",
+    dir = "git_dir",
+    on_open = function(term)
+	vim.cmd("startinsert!")
+    end
+})
+
+function _conemu_toggle()
+    conemu:toggle()
+end
+
 local lazygit = require("toggleterm.terminal").Terminal:new({
   cmd = "lazygit",
   dir = "git_dir",

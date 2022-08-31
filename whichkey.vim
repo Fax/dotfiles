@@ -23,6 +23,7 @@ wk.register({
   ["<leader>t"]  = { name = "+Toggleterm" },
   ["<leader>tt"] = { "<cmd>ToggleTerm size=20 dir=. direction=horizontal<cr>", "ToggleTerm: spawn a terminal." },
   ["<leader>tg"] = { "<cmd>lua _lazygit_toggle()<cr>", "ToggleTerm: spawn lazygit." },
-
+  ["<leader>ty"] = { "<cmd>lua _conemu_toggle()<cr>", "ToggleTerm: spawn conemu." },
+  ["<M-f>"] = {"<cmd>CocCommand prettier.forceFormatDocument<cr>","format"}
 })
 EOF
