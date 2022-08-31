@@ -149,6 +149,25 @@ highlight! link DiffText MatchParen
 endif
 
 " =Notifications
+lua << EOF
+-- copy selection to a new buffer
+
+function to_new_buffer()
+    local vstart = vim.fn.getpos("'<")
+    local vend = vim.fn.getpos("'>")
+    local line_start = vstart[2]
+    local line_end = vend[2]
+
+    local api = vim.api
+    api.nvim_feedkeys("y","x",false)
+    api.nvim_command("botright split new")
+    api.nvim_feedkeys("p","x",false)
+end
+
+
+EOF
+
+
 
 lua << EOF
 require("notify").setup()

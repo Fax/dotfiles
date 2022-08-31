@@ -3,9 +3,10 @@ call plug#begin('~/AppData/Local/nvim/plugged')
 
 Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
-
+    Plug 'rafcamlet/nvim-luapad'
+Plug 'tjdevries/nlua.nvim'
 Plug 'Mofiqul/vscode.nvim'
-
+Plug 'euclidianAce/BetterLua.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}

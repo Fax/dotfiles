@@ -20,10 +20,19 @@ wk.register({
   ["<leader>fh"] = { "<cmd>Telescope notify<cr>", "Telescope: search the history." },
   ["<leader>fd"] = { "<cmd>Telescope coc diagnostics<cr>", "Telescope: search the diagnostics." },
 
+  ["<leader>r"] ={name="+Refactor"},
+  ["<leader>re"] ={"<cmd>lua to_new_buffer()<cr>","Extract selection to new buffer: works in visual mode."},
+
   ["<leader>t"]  = { name = "+Toggleterm" },
   ["<leader>tt"] = { "<cmd>ToggleTerm size=20 dir=. direction=horizontal<cr>", "ToggleTerm: spawn a terminal." },
   ["<leader>tg"] = { "<cmd>lua _lazygit_toggle()<cr>", "ToggleTerm: spawn lazygit." },
   ["<leader>ty"] = { "<cmd>lua _conemu_toggle()<cr>", "ToggleTerm: spawn conemu." },
   ["<M-f>"] = {"<cmd>CocCommand prettier.forceFormatDocument<cr>","format"}
 })
+
+wk.register({
+
+  ["<leader>r"] ={name="+Refactor"},
+  ["<leader>re"] ={"<cmd>lua to_new_buffer()<cr>","Extract selection to new buffer"},
+},{mode="v"})
 EOF
