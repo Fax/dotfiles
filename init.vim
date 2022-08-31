@@ -1,11 +1,11 @@
-set number
-source ./plugins.vim
+let basePath = "~/AppData/Local/nvim/"
+runtime plugins.vim
 lua <<EOF
 require('crates').setup()
 
 EOF
-source ./whichkey.vim
-source ./coc-keys.vim
+runtime whichkey.vim
+runtime coc-keys.vim
 
 lua << EOF
 require ("nvim-autopairs").setup{}
@@ -36,7 +36,7 @@ END
 let g:blamer_enabled = 1
 
 " =NvimTree=
-source ./tree.vim
+runtime tree.vim
 
 " =Comment=
 
@@ -99,7 +99,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 
-source ./base.vim
+runtime base.vim
 " =Customs=
 
 " Disables automatic commenting on newline:

@@ -10,8 +10,7 @@ wk.register({
   ["<leader>c"]  = { name = "+Customs" },
   ["<leader>co"] = { ":setlocal spell! spelllang=en_uk<cr>", "Customs: check spell." },
   ["<c-p>"] = {"<cmd>Telescope find_files<cr>", "Find File"},
-  ["<c-s-f>"] = {"<cmd>Telescope live_grep<cr>", "Search"},
-
+  ["<c-f>"] = {"<cmd>Telescope live_grep<cr>", "Search"},
   ["<s-f12>"] = { "<cmd>Telescope coc references<cr>", "Telescope: popup references." },
   ["<leader>f"]  = { name = "+Telescope"},
   ["<leader>ff"] = { "<cmd>Telescope find_files<cr>", "Telescope: lists files in your cwd." },
