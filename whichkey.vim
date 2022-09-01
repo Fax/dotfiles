@@ -21,7 +21,7 @@ wk.register({
   ["<leader>fd"] = { "<cmd>Telescope coc diagnostics<cr>", "Telescope: search the diagnostics." },
 
   ["<leader>r"] ={name="+Refactor"},
-  ["<leader>re"] ={"<cmd>lua to_new_buffer()<cr>","Extract selection to new buffer: works in visual mode."},
+  ["<leader>re"] ={"<cmd>lua to_new_buffer()<cr>","Extract selection to new buffer: works in visual mode. In normal mode it only extracts the current line"},
 
   ["<leader>t"]  = { name = "+Toggleterm" },
   ["<leader>tt"] = { "<cmd>ToggleTerm size=20 dir=. direction=horizontal<cr>", "ToggleTerm: spawn a terminal." },

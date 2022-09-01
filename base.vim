@@ -1,7 +1,5 @@
 
 " =Basics=
-nnoremap <Space> <Nop>
-let mapleader = ","
 map <Space> <Leader>
 colorscheme vscode
 set background=dark
