@@ -6,10 +6,23 @@ map <Space> <Leader>
 colorscheme vscode
 set background=dark
 set termguicolors
-set number
+"set number
+
+
 nnoremap c "_c
 set nocompatible
 if !exists('g:syntax_on') | syntax enable | endif
+set rnu
+nnoremap <silent> <A-Down> :move +1<cr>
+nnoremap <silent> <A-Up> :move -2<cr>
+
+inoremap <silent> <A-Down> <Esc> :move +1<cr>i
+inoremap <silent> <A-Up> <Esc> :move -2<cr>i
+
+vnoremap <silent> <A-Down> :move '>+1<cr>gv
+vnoremap <silent> <A-Up>  :move '<-2<cr>gv
+
+
 filetype indent plugin on
 syntax on
 set backspace=indent,eol,start

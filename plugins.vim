@@ -3,9 +3,11 @@ call plug#begin('~/AppData/Local/nvim/plugged')
 
 Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
-    Plug 'rafcamlet/nvim-luapad'
+Plug 'rafcamlet/nvim-luapad'
+
 Plug 'tjdevries/nlua.nvim'
 Plug 'Mofiqul/vscode.nvim'
+
 Plug 'euclidianAce/BetterLua.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
@@ -18,7 +20,6 @@ Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
-Plug 'coc-extensions/coc-omnisharp', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'josa42/coc-docker', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}

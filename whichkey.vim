@@ -6,6 +6,8 @@ local wk = require("which-key")
 wk.register({
   ["<leader>n"]  = { name = "+NvimTree" },
   ["<leader>no"]  = { "<cmd>NvimTreeToggle<cr>", "NvimTree: open and close tree." },
+  ["<leader>nn"]  = { "<cmd>NvimTreeFocus<cr>", "Focus." },
+  ["<leader>nr"]  = { "<cmd>NvimTreeRefresh<cr>", "Refresh." },
 
   ["<leader>c"]  = { name = "+Customs" },
   ["<leader>co"] = { ":setlocal spell! spelllang=en_uk<cr>", "Customs: check spell." },
