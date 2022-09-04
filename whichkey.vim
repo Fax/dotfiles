@@ -16,11 +16,13 @@ wk.register({
   ["<s-f12>"] = { "<cmd>Telescope coc references<cr>", "Telescope: popup references." },
   ["<leader>f"]  = { name = "+Telescope"},
   ["<leader>ff"] = { "<cmd>Telescope find_files<cr>", "Telescope: lists files in your cwd." },
+  ["<leader>fc"] = { "<cmd>Telescope oldfiles<cr>", "Recent files." },
   ["<leader>fg"] = { "<cmd>Telescope live_grep<cr>", "Telescope: search for a string in your cwd live." },
   ["<leader>fb"] = { "<cmd>Telescope buffers<cr>", "Telescope: lists open buffers in current instance." },
   ["<leader>fr"] = { "<cmd>Telescope coc references<cr>", "Telescope: popup references." },
   ["<leader>fh"] = { "<cmd>Telescope notify<cr>", "Telescope: search the history." },
   ["<leader>fd"] = { "<cmd>Telescope coc diagnostics<cr>", "Telescope: search the diagnostics." },
+  ["<leader>fn"] = { "<cmd>vnew<cr>", "new file" },
 
   ["<leader>r"] ={name="+Refactor"},
   ["<leader>re"] ={"<cmd>lua to_new_buffer()<cr>","Extract selection to new buffer: works in visual mode."},

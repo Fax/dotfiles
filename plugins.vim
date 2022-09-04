@@ -1,10 +1,11 @@
 
 call plug#begin('~/AppData/Local/nvim/plugged')
 
+"Plug 'SirVer/ultisnips'
 Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
 Plug 'rafcamlet/nvim-luapad'
-
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'tjdevries/nlua.nvim'
 Plug 'Mofiqul/vscode.nvim'
 

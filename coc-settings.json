@@ -26,6 +26,8 @@
   "coc.preferences.extensionUpdateCheck": "never",
   "suggest.disableMenu": true,
   "suggest.snippetIndicator": "",
+  "prettier.formatterPriority": -1,
+  "typescript.format.enabled": true,
   "codeLens.enable": true,
   "codeLens.separator": "🔍",
   "coc.preferences.jumpCommand": "drop",

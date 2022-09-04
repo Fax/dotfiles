@@ -59,9 +59,10 @@ require('crates').setup()
 
 EOF
 runtime whichkey.vim
-runtime coc-keys.vim
 
 lua << EOF
+
+
 require ("nvim-autopairs").setup{}
 EOF
 lua << EOF
@@ -74,11 +75,19 @@ EOF
 lua << EOF
 require("telescope").setup({
   extensions = {
+      file_browser={
+      theme= 'ivy'
+      },
     coc = { theme = 'ivy' }
   },
 })
 require('telescope').load_extension('coc')
 require("telescope").load_extension("notify")
+require("telescope").load_extension("file_browser")
+
+--require("tree-sitter-typescript").typescript
+--require("tree-sitter-typescript").tsx
+
 EOF
 
 " =Lualine=
@@ -300,3 +309,8 @@ endfunction
 autocmd User CocNvimInit call s:InitCoc()
 autocmd User CocDiagnosticChange call s:DiagnosticNotify()
 autocmd User CocStatusChange call s:StatusNotify()
+
+
+
+
+runtime coc-keys.vim
