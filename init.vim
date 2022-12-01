@@ -1,6 +1,31 @@
 let basePath = "~/AppData/Local/nvim/"
 runtime plugins.vim
 
+
+runtime whichkey.vim
+" simple save file
+nnoremap <silent> <C-s> <Cmd>w<CR>
+inoremap <silent> <C-s> <Esc><Cmd>w<CR>
+runtime base.vim
+autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
+"testing inoremap
+"
+if has("win32") && has("nvim")
+  nnoremap <C-z> <nop>
+  inoremap <C-z> <nop>
+  vnoremap <C-z> <nop>
+  snoremap <C-z> <nop>
+  xnoremap <C-z> <nop>
+  cnoremap <C-z> <nop>
+  onoremap <C-z> <nop>
+endif
+
+autocmd BufEnter *.go nnoremap <silent> <buffer> <F5> <Esc>:!go run %<CR>
+
+
+
+
+
 if has('patch-8.1.1880')
   set completeopt=longest,menuone,popuphidden
   " Highlight the completion documentation popup background/foreground the same as
@@ -57,12 +82,50 @@ augroup END
 lua <<EOF
 require('crates').setup()
 
+
+
+-- Configure LSP through rust-tools.nvim plugin.
+-- rust-tools will configure and enable certain LSP features for us.
+-- See https://github.com/simrat39/rust-tools.nvim#configuration
+local opts = {
+  tools = {
+    runnables = {
+      use_telescope = true,
+    },
+    inlay_hints = {
+      auto = true,
+      show_parameter_hints = false,
+      parameter_hints_prefix = "",
+      other_hints_prefix = "",
+    },
+  },
+
+  -- all the opts to send to nvim-lspconfig
+  -- these override the defaults set by rust-tools.nvim
+  -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
+  server = {
+    -- on_attach is a callback called when the language server attachs to the buffer
+    on_attach = on_attach,
+    settings = {
+      -- to enable rust-analyzer settings visit:
+      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+      ["rust-analyzer"] = {
+        -- enable clippy on save
+        checkOnSave = {
+          command = "clippy",
+        },
+      },
+    },
+  },
+}
+
+require("rust-tools").setup(opts)
+
 EOF
-runtime whichkey.vim
 
 lua << EOF
-
-
+require('go').setup()
+require("go.format").goimport()
 require ("nvim-autopairs").setup{}
 EOF
 lua << EOF
@@ -72,24 +135,63 @@ require("indent_blankline").setup {
 EOF
 
 " =Telescope=
+"
 lua << EOF
 require("telescope").setup({
   extensions = {
       file_browser={
       theme= 'ivy'
       },
-    coc = { theme = 'ivy' }
+    coc = { theme = 'dropdown' }
   },
 })
+require("telescope").load_extension("ui-select")
 require('telescope').load_extension('coc')
 require("telescope").load_extension("notify")
 require("telescope").load_extension("file_browser")
+require("telescope").load_extension("project")
+require('leap').add_default_mappings()
 
---require("tree-sitter-typescript").typescript
---require("tree-sitter-typescript").tsx
+require('nvim-treesitter.configs').setup {
+  highlight = {
+    enabled = true
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+  refactor = {
+		highlight_definitions = {
+			enable = true
+		},
+		highlight_current_scope = {
+			enable = true
+		},
+		smart_rename = {
+			enable = true,
+			keymaps = {
+				smart_rename = "grr"
+			}
+		},
+		navigation = {
+			enable = true,
+			keymaps = {
+				goto_definition = "gnd",
+				list_definitions = "gnD"
+			}
+		}
+	},
+}
 
 EOF
-
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldlevel=20
 " =Lualine=
 lua << END
 require('lualine').setup()
@@ -99,7 +201,6 @@ END
 let g:blamer_enabled = 1
 
 " =NvimTree=
-runtime tree.vim
 
 " =Comment=
 
@@ -174,42 +275,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 
-runtime base.vim
-" =Customs=
 
-" Disables automatic commenting on newline:
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-" Perform dot commands over visual blocks:
-vnoremap . :normal .<CR>
-" Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
-set splitbelow splitright
-" Replace ex mode with gq
-map Q gq
-" Runs a script that cleans out tex build files whenever I close out of a .tex file.
-autocmd VimLeave *.tex !texclear %
-" Ensure files are read as what I want:
-autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
-autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
-autocmd BufRead,BufNewFile *.tex set filetype=tex
-" Save file as sudo on files that require root permission
-cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
-" Automatically deletes all trailing whitespace and newlines at end of file on save. & reset cursor position
-autocmd BufWritePre * let currPos = getpos(".")
-autocmd BufWritePre * %s/\s\+$//e
-autocmd BufWritePre * %s/\n\+\%$//e
-autocmd BufWritePre *.[ch] %s/\%$/\r/e
-autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
-" When shortcut files are updated, renew bash and ranger configs with new material:
-autocmd BufWritePost bm-files,bm-dirs !shortcuts
-" Run xrdb whenever Xdefaults or Xresources are updated.
-autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
-autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
-" Recompile dwmblocks on config edit.
-autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid -f dwmblocks }
-" Turns off highlighting on the bits of code that are changed, so the line that is changed is highlighted but the actual text that has changed stands out on the line and is readable.
-if &diff
-highlight! link DiffText MatchParen
-endif
 
 " =Notifications
 lua << EOF
@@ -231,14 +297,18 @@ end
 EOF
 
 
-
 lua << EOF
 require("notify").setup()
 vim.notify = require("notify")
 local coc_status_record = {}
 
 function coc_status_notify(msg, level)
-  local notify_opts = { title = "LSP Status", timeout = 500, hide_from_history = true, on_close = reset_coc_status_record }
+  local notify_opts = { title = "LSP Status",
+  timeout = 500,
+  hide_from_history = true,
+style = "minimal",
+focusable = false,
+  on_close = reset_coc_status_record }
   -- if coc_status_record is not {} then add it to notify_opts to key called "replace"
   if coc_status_record ~= {} then
     notify_opts["replace"] = coc_status_record.id
@@ -253,7 +323,11 @@ end
 local coc_diag_record = {}
 
 function coc_diag_notify(msg, level)
-  local notify_opts = { title = "LSP Diagnostics", timeout = 500, on_close = reset_coc_diag_record }
+  local notify_opts = { title = "LSP Diagnostics",
+  timeout = 500,
+focusable = false,
+style = "minimal",
+  on_close = reset_coc_diag_record }
   -- if coc_diag_record is not {} then add it to notify_opts to key called "replace"
   if coc_diag_record ~= {} then
     notify_opts["replace"] = coc_diag_record.id
@@ -299,7 +373,7 @@ function! s:StatusNotify() abort
   let l:status = get(g:, 'coc_status', '')
   let l:level = 'info'
   if empty(l:status) | return '' | endif
-  call v:lua.coc_status_notify(l:status, l:level)
+"  call v:lua.coc_status_notify(l:status, l:level)
 endfunction
 
 function! s:InitCoc() abort
@@ -307,10 +381,16 @@ function! s:InitCoc() abort
 endfunction
 
 autocmd User CocNvimInit call s:InitCoc()
-autocmd User CocDiagnosticChange call s:DiagnosticNotify()
-autocmd User CocStatusChange call s:StatusNotify()
-
-
-
+" autocmd User CocDiagnosticChange call s:DiagnosticNotify()
+" autocmd User CocStatusChange call s:StatusNotify()
 
 runtime coc-keys.vim
+
+runtime tree.vim
+
+autocmd BufEnter *.go,*.ts,*.tsx,*.cs :TSBufEnable highlight
+
+
+" commands
+"
+command! Ci CocCommand tsserver.sortImports 

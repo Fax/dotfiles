@@ -3,7 +3,7 @@
 nnoremap <Space> <Nop>
 let mapleader = ","
 map <Space> <Leader>
-colorscheme vscode
+colorscheme doom-one
 set background=dark
 set termguicolors
 "set number
@@ -15,9 +15,9 @@ if !exists('g:syntax_on') | syntax enable | endif
 set rnu
 nnoremap <silent> <A-Down> :move +1<cr>
 nnoremap <silent> <A-Up> :move -2<cr>
-
-inoremap <silent> <A-Down> <Esc> :move +1<cr>i
-inoremap <silent> <A-Up> <Esc> :move -2<cr>i
+" remember: spaces ARE characters, so <Esc> :move and <Esc>:move are 2 different commands
+inoremap <silent> <A-Down> <Esc>:move +1 <cr>i
+inoremap <silent> <A-Up> <Esc>:move -2<cr>i
 
 vnoremap <silent> <A-Down> :move '>+1<cr>gv
 vnoremap <silent> <A-Up>  :move '<-2<cr>gv
@@ -32,7 +32,7 @@ set tabstop=8
 set textwidth=80
 set title
 set go=a
-set mouse=a
+set mouse+=a
 set nohlsearch
 set clipboard+=unnamedplus
 set noshowmode
@@ -49,6 +49,7 @@ set updatetime=1000
 set wildmode=longest,list,full
 set completeopt=menuone,noinsert,noselect
 set timeoutlen=500
-set hidden
-
+"set hidden
+set ignorecase
+set smartcase
 " =Customs=
